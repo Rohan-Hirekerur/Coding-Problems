@@ -7,37 +7,38 @@ def evenDigits(num):
             return False
     return True
 
-num = 5454
-inc = False
-lb = ""
-ub = "2"
+num = 99
+str_num = list(str(num))
+lb = list(str(num))
+ub = list(str(num))
+inc = True
 mod_by = "1"
 length = len(str(num))
 
 for i in range(0, length-1):
     mod_by+="0"
-    ub = "1" + ub
 
 mod_by = int(mod_by)
-ub = int(ub)
-mod = num % mod_by
 div = int(num / mod_by)
 if not evenDigits(num):
-    if div % 2 == 0:
-        if num % 10 < 5:
-            inc = False
-        else:
-            inc = True
-    else:
-        lb = str(int(num / mod_by)-1)
-        for i in range(0, length-1):
-            lb += "8"
-        ub = int(lb) + ub
-        print(lb, ub)
-        if num - int(lb) > int(ub) - num:
-            inc = True
-        else:
-            inc = False
+    for i in range(0, length):
+        if int(str_num[i]) % 2 != 0:
+            if int(str_num[i]) == 9:
+                inc = False
+                break
+            lb[i] = str(int(str_num[i]) - 1)
+            ub[i] = str(int(str_num[i]) + 1)
+            for j in range(i+1, length):
+                lb[j] = "8"
+                ub[j] = "0"
+            lb = int("".join(lb))
+            ub = int("".join(ub))
+            print(lb, ub)
+            break
+    if inc and num - lb < ub - num:
+        inc = False
+        
+                
     
 counter = 0
 or_num = num    
@@ -51,6 +52,3 @@ else:
         counter +=1
         
 print(or_num, num, counter)
-    
-
-(359-288)%112
